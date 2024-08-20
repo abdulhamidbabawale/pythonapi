@@ -29,6 +29,8 @@ def hangle_401_error(_error):
     """return a 401 status code"""
     return make_response(jsonify({'error': 'Unauthorized'}), 401)
 
+
+#post data
 @app.route('/api', methods=['POST'])
 def api_post():
      name=request.json['name']
@@ -39,18 +41,20 @@ def api_post():
 
      return data_schema.jsonify(new_data),201
 
-#get all products
+#get all data
 @app.route('/api',methods=['GET'])
 def get_datas():
      all_data=Data.query.all()
      result=datas_schema.dump(all_data)
      return jsonify(result)
 
+#get data with id
 @app.route('/api/<id>',methods=['GET'])
 def get_data(id):
      data=Data.query.get(id)
      return data_schema.jsonify(data)
 
+#update data
 @app.route('/api/<id>',methods=['PUT'])
 def update_data(id):
     data=Data.query.get(id)
@@ -58,7 +62,7 @@ def update_data(id):
     data.name=name
     db.session.commit()
     return data_schema.jsonify(data)
-
+ #delete data
 @app.route('/api/<id>',methods=['DELETE'])
 def delete_data(id):
      data=Data.query.get(id)
