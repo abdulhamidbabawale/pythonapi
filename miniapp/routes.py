@@ -28,7 +28,7 @@ def hangle_401_error(_error):
 
 
 #post data
-@app.route('/', methods=['POST'])
+@app.route('/api/data', methods=['POST'])
 def api_post():
      name=request.json['name']
 
@@ -39,20 +39,20 @@ def api_post():
      return data_schema.jsonify(new_data),201
 
 #get all data
-@app.route('/',methods=['GET'])
+@app.route('/api/data',methods=['GET'])
 def get_datas():
      all_data=Data.query.all()
      result=datas_schema.dump(all_data)
      return jsonify(result)
 
 #get data with id
-@app.route('/<id>',methods=['GET'])
+@app.route('/api/data/<id>',methods=['GET'])
 def get_data(id):
      data=Data.query.get(id)
      return data_schema.jsonify(data)
 
 #update data
-@app.route('/<id>',methods=['PUT'])
+@app.route('/api/data/<id>',methods=['PUT'])
 def update_data(id):
     data=Data.query.get(id)
     name=request.json['name']
@@ -60,7 +60,7 @@ def update_data(id):
     db.session.commit()
     return data_schema.jsonify(data)
  #delete data
-@app.route('/<id>',methods=['DELETE'])
+@app.route('/api/data/<id>',methods=['DELETE'])
 def delete_data(id):
      data=Data.query.get(id)
      db.session.delete(data)
